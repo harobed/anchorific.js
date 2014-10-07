@@ -50,7 +50,7 @@ if ( typeof Object.create !== 'function' ) {
 			if ( self.headers.length !== 0 ) {
 				self.first = parseInt( self.headers.prop( 'nodeName' ).substring( 1 ), null );
 			}
-			
+
 			self.build();
 		},
 
@@ -64,7 +64,7 @@ if ( typeof Object.create !== 'function' ) {
 			position: 'append', // position of anchor text
 			spyOffset: !0 // specify heading offset for spy scrolling
 		},
-		
+
 		build: function() {
 			var self = this, obj, navigations = function() {};
 			// when navigation configuration is set
@@ -85,10 +85,10 @@ if ( typeof Object.create !== 'function' ) {
 			if ( self.opt.spy )
 				self.spy();
 
-			if ( self.opt.top ) 
+			if ( self.opt.top )
 				self.back();
 		},
-		
+
 		navigations: function( obj ) {
 			var self = this, link, list, which, name = self.name( obj );
 
@@ -96,7 +96,7 @@ if ( typeof Object.create !== 'function' ) {
 				name = obj.attr( 'id' );
 
 			link = $( '<a />' ).attr( 'href', '#' + name ).text( obj.text() );
-			list = $( '<li />' ).append( link ); 
+			list = $( '<li />' ).append( link );
 
 			which = parseInt( obj.prop( 'nodeName' ).substring( 1 ), null );
 			list.attr( 'data-tag', which );
@@ -124,15 +124,15 @@ if ( typeof Object.create !== 'function' ) {
 		},
 
 		name: function( obj ) {
-			var name = obj.text().replace( /[^\w\s]/gi, '' )
-								.replace( /\s+/g, '-' )
-								.toLowerCase();
-
-			return name;
+            var UUIDv4 = function b(a) {
+              return a?(a^Math.random()*16>>a/4).toString(16):([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,b);
+            };
+            obj.name = UUIDv4();
+            return obj.name;
 		},
 
 		anchor: function( obj ) {
-			var self = this, name = self.name( obj ), anchor, text = self.opt.anchorText,
+			var self = this, name = obj.name, anchor, text = self.opt.anchorText,
 				klass = self.opt.anchorClass, id;
 
 			if ( obj.attr( 'id' ) === undefined )
