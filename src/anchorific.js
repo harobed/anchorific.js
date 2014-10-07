@@ -62,7 +62,9 @@ if ( typeof Object.create !== 'function' ) {
 			top: '.top', // back to top button or link class
 			spy: true, // scroll spy
 			position: 'append', // position of anchor text
-			spyOffset: !0 // specify heading offset for spy scrolling
+			spyOffset: !0, // specify heading offset for spy scrolling
+            smoothScroll: true,  // scroll smoothly
+            smoothScrollSpeed: 'fast'  // Speed of smooth scrolling
 		},
 
 		build: function() {
@@ -87,6 +89,9 @@ if ( typeof Object.create !== 'function' ) {
 
 			if ( self.opt.top )
 				self.back();
+
+            if ( self.opt.smoothScroll )
+                self.smoothScroll();
 		},
 
 		navigations: function( obj ) {
@@ -198,7 +203,20 @@ if ( typeof Object.create !== 'function' ) {
 					prev = list;
 				}
 			});
-		}
+		},
+
+        smoothScroll: function() {
+            var self = this;
+            $(document).on('click', self.opt.navigation + ' a', function(e) {
+                e.preventDefault();
+                var target = $(this.hash);
+                if (target) {
+                    var targetTop = target.offset().top;
+                    $('html, body').animate({scrollTop:targetTop},
+                                            self.opt.smoothScrollSpeed, 'swing');
+                }
+            });
+        }
 	};
 
 	$.fn.anchorific = function( options ) {
