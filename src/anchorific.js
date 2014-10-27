@@ -43,7 +43,7 @@ if ( typeof Object.create !== 'function' ) {
 
 			self.opt = $.extend( {},  this.opt, options );
 
-			self.headers = self.$elem.find( 'h1, h2, h3, h4, h5, h6' );
+			self.headers = self.$elem.find(self.opt.headers);
 			self.previous = 0;
 
 			// Fix bug #1
@@ -64,7 +64,8 @@ if ( typeof Object.create !== 'function' ) {
 			position: 'append', // position of anchor text
 			spyOffset: !0, // specify heading offset for spy scrolling
             smoothScroll: true,  // scroll smoothly
-            smoothScrollSpeed: 'fast'  // Speed of smooth scrolling
+            smoothScrollSpeed: 'fast',  // Speed of smooth scrolling
+            headers: 'h1, h2, h3, h4, h5, h6'
 		},
 
 		build: function() {
@@ -132,7 +133,7 @@ if ( typeof Object.create !== 'function' ) {
             var UUIDv4 = function b(a) {
               return a?(a^Math.random()*16>>a/4).toString(16):([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,b);
             };
-            obj.name = UUIDv4();
+            obj.name = new UUIDv4();
             return obj.name;
 		},
 
